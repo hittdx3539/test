@@ -1,0 +1,108 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title></title>
+
+    <style type="text/css">
+        
+        /*弹出层*/
+           .pop-box {
+            z-index:9999;
+            border:2px solid #c4E3FF;
+            margin:0;
+            display:none;
+            position:fixed;
+            background-color:#E1F1FF;
+        }
+        
+        /*头标题*/
+        .pop-box header {
+            padding:12px 0 0 12px;
+            margin:0;
+            height:25px;
+        }
+        
+        /*头标题样式*/
+         .pop-box h3  {
+            color:#555;
+            font-size:13px;
+            margin:0;
+        }
+        
+         /*内容*/
+         .pop-box-body {   
+            clear: both;   
+            padding:0 13px 13px 13px;
+            margin: 0;  
+            font-size:13px;  
+        } 
+        
+        
+        .mask {
+        
+            width:100%;
+            height:100%;
+            position:fixed;
+            top:0;
+            left:0;
+            background-color:#666;
+            filter: Alpha(Opacity=80);
+            -moz-opacity: 0.8;
+            opacity: 0.8;
+            z-index: 9998; /*这个数值比pop box小*/ 
+        }
+    
+    </style>
+    
+    <script type="text/javascript" src="http://code.jquery.com/jquery-latest.js"></script>
+    
+    <script type="text/javascript">
+    
+        function popupDiv(div_id){
+            
+             var div_obj = $("#" + div_id);  
+             
+             var posLeft = ($(window).width() - div_obj.width()) / 2;
+             
+             
+             var posTop = ($(window).height() - div_obj.height()) / 2;
+             
+             
+             //添加并显示遮罩层
+             
+             $("<div id='mask'></div>").addClass("mask")
+                                       .appendTo("body")
+                                       .fadeIn(200);
+            
+             //fadeIn() 方法使用淡入效果来显示被选元素
+             div_obj.css({"top": posTop , "left": posLeft}).fadeIn();    
+            
+            
+        } 
+        
+        
+        function hideDiv(div_id) {   
+            $("#mask").remove();   
+            //fadeOut() 方法使用淡出效果来隐藏被选元素
+            $("#" + div_id).fadeOut();   
+        }     
+        
+    </script>
+
+</head>
+<body>
+    <div id="pop-div" style="width: 400px;" class="pop-box">
+        <header>
+         <h3>标题位置</h3> 
+        </header>
+        <div class="pop-box-body">
+            <p>
+                正文内容
+            </p>
+            <input type="button" value="关闭" onclick="hideDiv('pop-div');" style="float: right" />
+        </div>
+    </div>
+    
+    <input type="button" id="btnTest" value="弹出" onclick="popupDiv('pop-div');" />
+</body>
+</html>
